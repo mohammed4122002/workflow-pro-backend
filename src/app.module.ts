@@ -6,6 +6,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { HrModule } from './modules/hr/hr.module';
+import { FinancialModule } from './modules/financial/financial.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { HrModule } from './modules/hr/hr.module';
     UsersModule,
     TasksModule,
     HrModule,
+    FinancialModule,
+    ReportsModule,
   ],
   controllers: [],
   providers: [],

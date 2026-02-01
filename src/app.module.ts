@@ -8,6 +8,7 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { HrModule } from './modules/hr/hr.module';
 import { FinancialModule } from './modules/financial/financial.module';
 import { ReportsModule } from './modules/reports/reports.module';
+import { AiModule } from './modules/ai/ai.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ReportsModule } from './modules/reports/reports.module';
     HrModule,
     FinancialModule,
     ReportsModule,
+    AiModule,
   ],
   controllers: [],
   providers: [],

@@ -171,3 +171,16 @@ model ReportSnapshot {
   data      Json
   createdAt DateTime   @default(now())
 }
+
+model AiInsightCache {
+  id              String     @id @default(uuid()) @db.Uuid
+  key             String     @unique
+  type            ReportType
+  rangeFrom       DateTime?  @db.Date
+  rangeTo         DateTime?  @db.Date
+  snapshotIdsHash String
+  data            Json
+  createdAt       DateTime   @default(now())
+
+  @@index([type, rangeFrom, rangeTo])
+}

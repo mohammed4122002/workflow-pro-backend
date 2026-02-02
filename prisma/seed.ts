@@ -1,41 +1,54 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
 async function main() {
+  const passwordHash = await bcrypt.hash('Password123!', 10);
+  const passwordUpdatedAt = new Date();
+
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@workflowpro.local' },
+    where: { email: 'admin@workflowpro.com' },
     update: {},
     create: {
-      email: 'admin@workflowpro.local',
+      email: 'admin@workflowpro.com',
       fullName: 'Admin User',
       role: 'ADMIN',
       department: 'Administration',
       isActive: true,
+      passwordHash,
+      passwordUpdatedAt,
+      mustChangePassword: false,
     },
   });
 
   const manager = await prisma.user.upsert({
-    where: { email: 'manager@workflowpro.local' },
+    where: { email: 'manager@workflowpro.com' },
     update: {},
     create: {
-      email: 'manager@workflowpro.local',
+      email: 'manager@workflowpro.com',
       fullName: 'Manager User',
       role: 'MANAGER',
       department: 'Operations',
       isActive: true,
+      passwordHash,
+      passwordUpdatedAt,
+      mustChangePassword: false,
     },
   });
 
   const employee = await prisma.user.upsert({
-    where: { email: 'employee@workflowpro.local' },
+    where: { email: 'employee@workflowpro.com' },
     update: {},
     create: {
-      email: 'employee@workflowpro.local',
+      email: 'employee@workflowpro.com',
       fullName: 'Employee User',
       role: 'EMPLOYEE',
       department: 'Engineering',
       isActive: true,
+      passwordHash,
+      passwordUpdatedAt,
+      mustChangePassword: false,
     },
   });
 

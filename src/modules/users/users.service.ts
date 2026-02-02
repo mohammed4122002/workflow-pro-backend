@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Role, User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../database/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { QueryUsersDto } from './dto/query-users.dto';
@@ -33,13 +34,16 @@ export class UsersService {
       throw new ConflictException('Email already exists.');
     }
 
+    const passwordHash = await bcrypt.hash(dto.password, 10);
     const user = await this.prisma.user.create({
       data: {
         email: dto.email,
         fullName: dto.fullName,
+        passwordHash,
         role: dto.role,
         department: dto.department ?? null,
         isActive: true,
+        mustChangePassword: true,
       },
     });
 

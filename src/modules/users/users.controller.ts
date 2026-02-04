@@ -129,4 +129,16 @@ export class UsersController {
   ) {
     return this.usersService.deactivate(id, user.id);
   }
+
+  @ApiOperation({ summary: 'Activate user (ADMIN only).' })
+  @ApiOkResponse({ type: UserResponse })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User not found' })
+  @ApiParam({ name: 'id', format: 'uuid' })
+  @Roles(Role.ADMIN)
+  @Patch(':id/activate')
+  async activate(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.usersService.activate(id);
+  }
 }

@@ -144,4 +144,18 @@ export class UsersService {
 
     return this.toResponse(updated);
   }
+
+  async activate(id: string) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found.');
+    }
+
+    const updated = await this.prisma.user.update({
+      where: { id },
+      data: { isActive: true },
+    });
+
+    return this.toResponse(updated);
+  }
 }
